@@ -4,9 +4,7 @@ function phrase() {
 		'Keep moving, theres nothing much to see.',
 		'"Look on every exit as being an entrance somewhere else."',
 		'"Your JavaScript Guy"',
-		'"Every now and then, break something"',
-		'What are you waiting for, find a vulnerability here.',
-		'The backdoors have been found.',
+		'"Computer go brrrrrrrrrr"'.
 		'You found another lazy website.',
 	];
 	$('#phrasespos').fadeOut(1000, function() {
