@@ -1,7 +1,7 @@
 ### Personal-Website Main
 
 [![Discord](https://img.shields.io/discord/304402108059484161.png?&style=flat-square&logo=discord&label=)](https://discord.gg/GpUQpJG)
-[![Maintenance](https://img.shields.io/maintenance/yes/2020.png?style=flat-square)](https://github.com/RHG-Web-Dev/)
+[![Maintenance](https://img.shields.io/maintenance/yes/2019.png?style=flat-square)](https://github.com/RHG-Web-Dev/)
 [![GitHub repo-size](https://img.shields.io/github/repo-size/badges/shields.png?style=flat-square)](https://github.com/RHG-Web-Dev)
 [![Version](https://img.shields.io/badge/Version-0.1.5-green.png?style=flat-square)](https://github.com/RHG-Web-Dev)
 

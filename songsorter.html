@@ -1,0 +1,441 @@
+<html>
+    <head>
+        <!-- Page Setup -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta property="og:site_name" content="RHG#0822">
+		<meta name="title" content="ROBLOX Audio Picker">
+		<meta name="description" content="An roblox audio picker created by Mighty_Loopy | Edited by rustyhuskey">
+		<meta name="theme-color" content="#f1f1f2">
+		<meta property="og:image" content="https://cdn.discordapp.com/avatars/140487710727995392/ceb570a26a945cc37931a12e4925f311.png">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content="256">
+		<meta property="og:image:height" content="256">
+		
+        <title>Audio Picker</title>
+
+        <!-- Bulma -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- CountUp.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+
+        <!-- Metafizzy Isotope -->
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+        <script src="https://npmcdn.com/packery@2.1/dist/packery.pkgd.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/isotope-packery@2.0.1/packery-mode.min.js"></script>
+
+
+        <!-- Page styling -->
+        <style>
+            :root {
+                --main-colour: #fc3c3c;
+                --second-colour: #74dbef;
+                --tertiary-colour: #0074e4;
+                --dark-colour: #264e86; 
+            }
+
+            p, i, div {
+                font-family: 'Montserrat', sans-serif;
+            }
+			
+			.section {
+                background-color: #292929;
+            }
+
+            .song-tile {
+				box-shadow: 0px 0px 16px 0px rgba(255, 255, 255, 0.2);
+                /*padding: .5vw;*/
+                background-color: #151515;
+                border-radius: 5px;
+
+                min-width: 7vw;
+
+                margin: 1.2%;
+                margin-bottom: 0vh;
+
+                color: #FFFFFF;
+                width: auto;
+            }
+
+            .song-grid {
+                height: 100%;
+                width: 95%;
+                margin: auto;
+            }
+
+            .section {
+                margin-bottom: none;
+                margin-top: none;
+                padding-bottom: 0;
+            }
+
+            .container {
+                box-shadow: 6px 6px 0px 0px rgba(255, 255, 255, 0.3);
+                background-color: rgb(65, 65, 65)
+            }
+
+            .song-container {
+                padding-top: 3.5vh;
+                padding-bottom: 3.5vh;
+            }
+
+            .song-wait-notice {
+                height: 15vh;
+                /*background-color: var(--main-colour);*/
+				background-color: #FF0000;
+                color: white;
+                text-align: center;
+                justify-content: center;
+                display: flex;
+                /*font-size: 2vw;*/
+            }
+
+            .song-wait-notice h1 {
+                /*size: 100%;
+                line-height: 15vh;*/
+            }
+			
+			.modal-card-head {
+                box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.3);
+				background-color: rgb(225, 225, 225)
+            }
+			
+			.modal-card-foot {
+                box-shadow: 0px -4px 12px 0px rgba(0, 0, 0, 0.3);
+				background-color: rgb(225, 225, 225)
+            }
+	
+            audio {
+                margin-top: 40px;
+                margin-bottom: 1.5vh;
+            }
+
+            /*a {
+            margin-left: .5vw;
+            margin-right: .5vw;
+            margin-bottom: .6vh;
+            }*/
+        </style>
+    </head>
+
+    <body>
+		<section class = "section" id = "top-part">
+            <div class = "container box hero is-info">
+                <h1 class = "is-size-2 has-text-bold">Notice</h1>
+                <p class = "is-size-5 subtitle is-gray">My website is 100% secure, i'm just not sure what is going on and the main creator is Mighty_Loopy, I just made a dark theme ;)</p>
+            </div>
+        </section>
+        <section class = "section" id = "top-part">
+            <div class = "container box hero is-bold is-info">
+                <h1 class = "is-size-2 has-text-bold">Audio Picker</h1>
+                <p class = "is-size-5 subtitle is-gray">This tool sends tons of requests to the roblox catalog for the new audio tracks, sorts them by genre, and then displays them in the below grid. Please beware, though, that the list will not be 100% accurate, as songs are still being uploaded - therefore, I can't create one big list with a python program, instead everything has to be done live. This means that the grid won't contain tiles for every single song, but more will be added as you wait.</p>
+            </div>
+        </section>
+
+        <section class = "section" id = "wait-notice">
+            <div class = "container song-wait-notice box hero is-danger">
+                <h1 class = "has-text-centered is-size-2">Please wait! Your browser is contacting Roblox's API for data...</h1>
+            </div>
+        </section>
+
+        <section class = "section" id = "control-panel">
+            <div class = "container box field buttons" id = "button-tray"/>
+        </section>
+
+        <section class = "section">
+            <div class = "container song-container box">
+                <div class = "song-grid"></div>
+            </div>
+        </section>
+
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Track Info</p>
+                    <button class="delete" id="modal-close" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class = "content">
+                        <!-- Header -->
+                        <h1 id = "modal-name">#</h1>
+                        <!-- Modal components -->
+                        <audio controls id = "audio-controls"></audio>
+                        <!-- Info table -->
+                        <table class = "table" style = "width: 85%">
+                            <tbody>
+								<tr>
+                                    <td><strong>Plaaceholder</strong></td>
+                                    <td id = "pholder">hold</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Updated</strong></td>
+                                    <td id = "updated">5 mins</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Description</strong></td>
+                                    <td id = "description"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tags</strong></td>
+                                    <td id = "tags"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Asset ID</strong></td>
+                                    <td id = "assetid"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Length</strong></td>
+                                    <td id = "length"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-info" id="visit-store" target="_blank">Visit Storepage</button>
+                    <button class="button is-danger" id="modal-close2" target="_blank">Close</button>
+                </footer>
+            </div>
+        </div>
+
+
+        <script type = "text/javascript">
+            // So it turns out I absolutely suck at web dev
+            // Guess I'm using a proxy to get arunds CORS because I have no other solution
+            var Proxy = "http://cors-anywhere.herokuapp.com/";
+            var Address = "https://search.roblox.com/catalog/json";
+
+            // The proxy we're using doesn't support headers
+            // As such, everything is hard-coded into the url >_<
+            var HardcodedArgs = "?CreatorID=1&Subcategory=16&Keyword=APM&SortType=3";
+
+            // GetData Function
+            function getData(pageNumber) {
+                return fetch(Proxy + Address + HardcodedArgs + "&PageNumber="+pageNumber, {
+                    method: 'GET'
+                }).then(function(response) {
+                    return response.json().then(function(data) {
+                        return data;
+                    })
+                }).catch(function(err) {
+                    return err;
+                });
+            }
+
+            // Create the isotope grid
+            var $grid = $(".song-grid").isotope({
+                itemSelector: ".song-tile",
+                percentPosition: false,
+                layoutMode: 'packery',
+                packery: {
+                    columnWidth: 30,
+                    gutter: 0,
+                    horizontal: false
+                },
+                stagger: 0
+            });
+
+            // Variables for storage
+            var SongList = []; var Genres = [];
+
+            // I have absolutely no idea what this does because I just copied + pasted from stackoverflow but it looks like its important
+            function escapeRegExp(str) {
+                return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+            }
+
+            // Function to replace all of the instances of a string inside a string with another string (find + replace)
+            function replaceAll(str, find, replace) {
+                return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+            }
+
+            // Convert the string into a format for classes / shorthand
+            function getShorthandString(OrigString) {
+                x = replaceAll(OrigString, " ", "") // Remove spaces
+                x = replaceAll(x, "/", " ") // Turn the slashes into spaces
+                x = x.replace(/[^\w\s]/gi, "") // Remove special characters
+
+                return x
+            }
+
+            // Function to create a clickable button for sorting cards
+            function createSortButton(DisplayName, Tag) {
+                var Button = $("<a class = 'button'>" + DisplayName + "</a>");
+                $("#button-tray").append(Button);
+
+                Button.on("click", function() {
+                    $grid.isotope({
+                        filter: Tag || ("." + getShorthandString(DisplayName))
+                    });
+                });
+            }
+
+            // Create a button for the all tag
+            createSortButton("All", "*")
+
+            // Scrape the string for new genres
+            function scrapeStringGenres(String) {
+                // Get the 3rd line, remove the first 3 chars
+                // We're left with something like: "Pop/Electronica"
+                var StringToStudy = String.split("\n")[3].substr(7);
+
+                var DeterminedGenre = [];
+
+                if (StringToStudy.length <= 1) {
+                    // This particular song / sting hasn't got a genre. WHY?!
+                    // Someone is being weird about setting those >_<
+                    DeterminedGenre = ["No Genre"];
+                    StringToStudy = "No Genre"
+                } else {
+                    // For all of the genres assigned to this song (usually 2)
+                    StringToStudy.split("/").map(function(GenreName) {
+                        // Push the genre to the list
+                        DeterminedGenre.push(GenreName)   
+                    });
+                }
+
+                // For all of the genres assigned to this song
+                // This is outside of the above .map so that I don't have to retype this for the "no genre" exception
+                DeterminedGenre.map(function(GenreName) {
+                    // Check that this genre is unique
+                    if (Genres.includes(GenreName)) { return };
+
+                    // We're good!
+
+                    // Add the genre to the genre list, to stop dupes
+                    Genres.push(GenreName)
+
+                    // Add the button to the header, for sorting
+                    createSortButton(GenreName)
+                });
+
+                // Return the string, for adding a filter to and displaying!
+                return StringToStudy
+            }
+
+            // Allow popups to show info on the modal, play audio, etc. etc.
+            var ModalIsShown = false;
+
+            function modalPopper(AudioObject, ShowcaseGenreList) {
+                // Manage flip-flopping
+                if (ModalIsShown) { return };
+                ModalIsShown = true;
+
+                // Toggle the modal "is-active" class
+                $(".modal").addClass("is-active");
+                // Clear the audio's children
+                $("#audio-controls").trigger("load").empty();
+                // Add an audio source for this audio object
+                $("<source src=" + AudioObject.AudioUrl + " type = 'audio/mp3'>").appendTo($("#audio-controls"));
+
+                // Change the URL for the catalog button
+                $("#visit-store").attr("href", AudioObject.AbsoluteUrl);
+
+                // Change the modal title
+                $("#modal-name").text(AudioObject.Name);
+                // Set how long since it was updated / created
+                var DateUpdated = AudioObject.UpdatedDate.match(/\d+/g)[0];
+                console.log(DateUpdated)
+                DateUpdated = new Date(parseInt(DateUpdated));
+                $("#updated").text(DateUpdated.toLocaleString());
+
+                // Set the description tag
+                var txt = (AudioObject.Description.split("\n")[0].replace('"', "").replace('"', ""));
+                $("#description").text(txt);
+                console.log(AudioObject)
+
+                // Set the tags row
+                $("#tags").text(ShowcaseGenreList);
+                
+                // Set the assetid tag
+                $("#assetid").text(AudioObject.AssetId)
+                
+                // Set the audio length
+                $("#length").text(AudioObject.Description.split("\n")[1].substr(10));
+            }
+            // Functions relating to the modal
+            function closeModal() {
+                // Check that the modal is shown
+                if (ModalIsShown) {
+                    ModalIsShown = false
+                    // Stop the audio + remove children
+                    $("#audio-controls").trigger("pause").empty();
+                    // Toggle the modal "is-active" class
+                    $(".modal").removeClass("is-active");
+                } 
+            }
+            $("#modal-close").click(closeModal);
+            $("#modal-close2").click(closeModal);
+            $(".modal-background").click(closeModal);
+            $("#visit-store").click(function() {
+                window.open($(this).attr("href"));
+            });
+
+
+            // Function to rip the data and display it in cells
+            function createCellObjects(pageNumber) {
+                // Get the data from the proxy
+                getData(pageNumber).then(function(Data) {
+                    // The label elements we'll later add to the isotope
+                    var LabelElements = [];
+
+                    // Loop through each JSON object
+                    Data.map(function(Object) {
+                        // Ensure that this song is *not* a duplicate 
+                        if (SongList.includes(Object.Name)) {
+                            return;
+                        } else {
+                            SongList.push(Object.Name);
+                        }
+
+                        // Fetch the genres from the description
+                        var GenreList = scrapeStringGenres(Object.Description);
+
+                        // Audio player object:
+                        // <audio controls> <source src = " + Object.AudioUrl + " type = 'audio/mp3'> </audio> 
+
+                        // Filtering strings
+                        var ShorthandReference = getShorthandString(GenreList);
+                        var ShowcaseGenreList = replaceAll(GenreList, "/", ", ") 
+
+                        // Create the tiles for the sounds
+                        var Box = $("<a class='song-tile box " + ShorthandReference + "'> <b>" + Object.Name + "</b> <p> " + ShowcaseGenreList + " </p> </a>");
+
+                        // Bind to the button being pressed
+                        Box.on("click", function() { modalPopper(Object, ShowcaseGenreList); });
+
+                        // Add this instance to the element list, for parenting to the isotope grid
+                        LabelElements.push(Box[0])
+                    });
+                    // Add the list of elements to the isotope
+                    $grid.append(LabelElements).isotope("appended", LabelElements)
+
+                    // Destroy the wait notice
+                    if ($("#wait-notice")) { $("#wait-notice").remove() }
+                });
+            }
+
+
+            var i
+            // Load an initial 5 objects, to 
+            for (i = 0; i < 5; i++) {
+                createCellObjects(i)
+            };
+
+            setInterval(function() { createCellObjects(i); i++}, 3000)
+		
+	var loc = window.location.href+'';
+  	if (loc.indexOf('https://')==0){
+      		window.location.href = loc.replace('https://','http://');
+ 	}
+        </script>
+
+    </body>
+</html>
