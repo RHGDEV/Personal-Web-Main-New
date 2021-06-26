@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css');
 #bg {
 	position: fixed;
@@ -24,7 +24,7 @@
 body {
 	background: #18191C;
 	transition: 0.25s opacity;
-	font-family: 'Kelly Slab', cursive;
+	font-family: 'Titillium Web', sans-serif;
 	display: flex;
 	align-items: center;
 	justify-content: center;
