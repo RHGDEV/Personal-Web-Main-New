@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400');
+@import url('https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css');
 #bg {
 	position: fixed;
@@ -24,7 +24,7 @@
 body {
 	background: #18191C;
 	transition: 0.25s opacity;
-	font-family: 'Source Code Pro', monospace;
+	font-family: 'Kelly Slab', cursive;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -38,7 +38,7 @@ h3 {
 }
 
 h6 {
-	margin: 7px 0;
+	margin: 4px 0;
 	/*text-transform: uppercase;*/
 }
 
@@ -92,22 +92,21 @@ p {
 	height: 19px
 }
 
-.skills {
+.shields {
 	background-color: #292b30;
-	color: #ffffff;
-	text-align: left;
-	padding: 15px;
-	margin-top: 30px;
+	text-align: center;
+	padding: 10px;
+	margin-top: 5px;
 }
 
-.skills ul {
+.tools ul {
 	color: #ffffff;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-.skills ul li {
+.tols ul li {
 	border: 1px solid #0d0c0f;
 	background-color: #000000;
 	color: #ffffff;
