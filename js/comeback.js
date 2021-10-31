@@ -1,5 +1,5 @@
 let title = document.title;
-var intervalTimer = null;
+let intervalTimer = null;
 window.addEventListener("blur", function() {
     intervalTimer = setInterval(function() {
         document.title = "👋👨‍💻";

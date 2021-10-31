@@ -30,25 +30,26 @@ function getSeason() {
     //return 'default' // enforce default image
     //return 'summer' // enforce summer image
     date = new Date();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    var seasons = ['spring','summer','autumn','winter'];
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let seasons = ['spring','summer','autumn','winter'];
     console.log(month, day)
     if (month == 3 && month == 4 && month == 5) return 'spring';
     else if (month == 6 && month == 7 && month == 8) return 'summer';
     else if (month == 9 && month == 10 && month == 11) return 'autumn';
     else if (month == 12 && month == 1 && month == 2) {
         if (month == 12 && day >= 25) return 'xmas';
-        if (day >= 28 && day <= 31) return 'nye';
+        if (month == 1 && day >= 1) return 'nye';
         return 'winter'
     }
     return seasons[Math.floor((month % 12) / 3)];
 }
 
 function loadScript(scriptName) {
-    var script = document.createElement('script');
-    //script.type = 'text/javascript';
+    let script = document.createElement('script');
     script.src = '/js/' + scriptName + '.js';
+    script.type = 'text/javascript';
+    script.async = false;
     document.head.appendChild(script);
     //eval(script);
 }
