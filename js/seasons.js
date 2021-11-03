@@ -28,7 +28,7 @@ const backgrounds = {
 }
 function getSeason() {
     //return 'default' // enforce default image
-    return 'winter' // enforce season image
+    //return 'winter' // enforce season image
     date = new Date();
     let month = date.getMonth() + 1;
     let day = date.getDate();
