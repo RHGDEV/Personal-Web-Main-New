@@ -73,7 +73,8 @@ function setBackground(season) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    let season = getSeason();
+    const urlParams = new URLSearchParams(window.location.search);
+    let season = urlParams.get('season') || getSeason();
     //console.log(season)
     setBackground(season);
     if (season == 'spring') {
