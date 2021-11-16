@@ -1,34 +1,36 @@
 const backgrounds = {
-    default: 'https://images.unsplash.com/photo-1631677209832-e9dd6aec3697',
+    default: '1631677209832-e9dd6aec3697',
     summer: [
-        'https://images.unsplash.com/photo-1541843713287-e0d5de49a384',
-        'https://images.unsplash.com/photo-1512848857248-75eff50a19a1',
-        'https://images.unsplash.com/photo-1544513169-0a660c85bdd9'
+        '1541843713287-e0d5de49a384',
+        '1512848857248-75eff50a19a1',
+        '1544513169-0a660c85bdd9'
     ],
     spring: [
-        'https://images.unsplash.com/photo-1591194577912-2c7811d0f994',
-        'https://images.unsplash.com/photo-1541942172213-60aeb3558797',
-        'https://images.unsplash.com/photo-1597086454462-1f9b6e95e1f7'
+        '1591194577912-2c7811d0f994',
+        '1541942172213-60aeb3558797',
+        '1597086454462-1f9b6e95e1f7'
     ],
     autumn: [
-        'https://images.unsplash.com/photo-1507486411790-179bbb6866ed'
+        '1507486411790-179bbb6866ed',
+        '1550931937-2dfd45a40da0',
+        '1508766229-1a45d4127740'
     ],
     winter: [
-        'https://images.unsplash.com/photo-1515583484859-a15e976f80d2',
-        'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22',
-        'https://images.unsplash.com/photo-1456389573961-0ae56d45961e'
+        '1515583484859-a15e976f80d2',
+        '1483921020237-2ff51e8e4b22',
+        '1456389573961-0ae56d45961e'
     ],
-    // Special
+    //? Special
     xmas: [
-        'https://images.unsplash.com/photo-1539298781177-895e382e795c'
+        '1539298781177-895e382e795c'
     ],
     nye: [
-        'https://images.unsplash.com/photo-1514876246314-d9a231ea21db'
+        '1514876246314-d9a231ea21db'
     ]
 }
 function getSeason() {
-    //return 'default' // enforce default image
-    //return 'winter' // enforce season image
+    //return 'default' //? enforce default image
+    //return 'nye' //? enforce season image
     date = new Date();
     let month = date.getMonth() + 1;
     let day = date.getDate();
@@ -46,18 +48,15 @@ function getSeason() {
 }
 
 function loadScript(scriptName) {
-    $.getScript('/js/' + scriptName + '.js', function(data, textStatus, jqxhr) {
-        //console.log(data); //data returned
-        console.log(textStatus); //success
-        //console.log(jqxhr.status); //200
-        //console.log('Load was performed.');
-   });
+    var script = document.createElement("script");
+    script.src = '/js/' + scriptName + '.js';
+    document.head.appendChild(script);
 }
 function addStyle(cssName) { $('head').append('<link rel="stylesheet" href="/css/' + cssName + '.css" type="text/css" />'); }
 function setBackground(season) {
-    let img = season.match('/http:\/\/www.example.com\/version.php/i') ? season : backgrounds[season][Math.floor(Math.random()*backgrounds[season].length)];
-    img = img || backgrounds.default;
-    img = img + '?ixlib=rb-1.2.1&auto=format&w=1920'// &q=180' // Downscale
+    let imgId = backgrounds[season] ? backgrounds[season][Math.floor(Math.random()*backgrounds[season].length)] : backgrounds.default;
+    imgId = imgId || backgrounds.default;
+    imgId = 'https://images.unsplash.com/photo-' + imgId + '?ixlib=rb-1.2.1&auto=format&h=1080'//? Format //! &q=180' //? Downscale
     let elem = document.getElementById('background');
     elem.style.position = "fixed";
     elem.style.top = "-50%"
@@ -66,7 +65,7 @@ function setBackground(season) {
     elem.style.height = "200%"
     elem.style.backgroundSize = "cover"
     elem.style.backgroundColor = "linear-gradient(5deg, rgba(0, 0, 0, 0.4)"
-    elem.style.backgroundImage = "url('"+ img +"')";
+    elem.style.backgroundImage = "url('"+ imgId +"')";
     elem.style.backgroundRepeat = "no-repeat";
     elem.style.backgroundPosition = "center center";
     elem.style.backgroundAttachment = "fixed";
@@ -75,20 +74,17 @@ function setBackground(season) {
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     let season = urlParams.get('season') || getSeason();
-    //console.log(season)
+    loadScript('comeback');
     setBackground(season);
     if (season == 'spring') {
     } else if (season == 'summer') {
     } else if (season == 'autumn') {
     } else if (season == 'winter') {
         loadScript('snow');
-        //let s = loadScript('snow');
-        //s.targetElement = 'background-cover'
-    // Special Cases
+    //? Special Cases
     } else if (season == 'xmas') {
         loadScript('snow');
     } else if (season == 'nye') {
-        //loadScript('snow');
         var canvas = document.createElement("canvas");
         canvas.id = "canvas";
         canvas.style.cursor = "crosshair"
@@ -100,8 +96,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	    canvas.style.top = "0";
         canvas.style.display = "block";
         canvas.style.zIndex = 10
-        document.getElementById('background-cover').appendChild(canvas);
-        //document.body.appendChild(canvas);
+        document.getElementById('background-cover').appendChild(canvas); //? Append to background-cover.
+        //?document.body.appendChild(canvas); // Append to body
         loadScript('fireworks');
+    } else {
+
     }
 });
