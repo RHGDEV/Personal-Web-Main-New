@@ -22,13 +22,17 @@ body {
 	margin: 0;
 }
 
-h3 {
-	margin: 10px 0;
+h1 {
+	margin: 4px 0;
+  font-size: 1.17em;
+  font-weight: normal;
 }
 
-h6 {
-	margin: 4px 0;
+h2 {
+	margin: 2px 0;
 	/*text-transform: uppercase;*/
+  font-size: .67em;
+  font-weight: normal;
 }
 
 p {
@@ -38,7 +42,7 @@ p {
 
 .card-container {
 	background-color: #18191C;
-	border-radius: 10px;
+	border-radius: 4px;
 	color: #ffffff;
 	margin: 10px 0;
 	padding-top: 30px;
@@ -61,8 +65,8 @@ p {
 }
 
 .badges ul img {
-	background-color: #000000;
-	border-radius: 10px;
+	background-color: #222327;
+	border-radius: 4px;
 	display: inline-block;
 	padding: 7px;
 	height: 19px
@@ -70,28 +74,32 @@ p {
 
 .shields {
 	margin: auto;
-	border-radius: 6px;
+	margin-top: 7px;
+	border-radius: 4px;
 	width: 85%;
 	background-color: #222327;
 	text-align: center;
 	padding: 10px;
-	margin-top: 5px;
 }
 
 .social {
 	margin: auto;
-	border-radius: 6px;
+	border-radius: 4px;
 	width: 85%;
-	background-color: #222327;
-	text-align: center;
-	margin-top: 5px;
+	/*background-color: #222327;*/
+	margin-top: 7px;
 	margin-bottom: 15px;
-	padding: 10px;
-	height: 15px
+	padding: 8px;
+	height: auto
 }
 
 .social a {
 	text-decoration: none;
+	background-color: #222327;
+	border-radius: 4px;
+	padding: 7px;
+	height: 19px;
+	margin: 4px;
 }
 
 .social li {
@@ -103,9 +111,8 @@ p {
 }
 
 .footer {
-	border-radius: 4px;
-	border: 1px solid #0d0c0f;
-	background-color: #000000;
+	border-radius: 6px;
+	background-color: #222327;
 	color: #ffffff;
 	font-size: 55%;
 	position: fixed;
