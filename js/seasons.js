@@ -30,7 +30,7 @@ const backgrounds = {
 }
 function getSeason() {
     //return 'default' //? enforce default image
-    //return 'nye' //? enforce season image
+    //return 'winter' //? enforce season image
     date = new Date();
     let month = date.getMonth() + 1;
     let day = date.getDate();
@@ -47,10 +47,16 @@ function getSeason() {
     return seasons[Math.floor((month % 12) / 3)];
 }
 
-function loadScript(scriptName) {
-    var script = document.createElement("script");
-    script.src = '/js/' + scriptName + '.js';
-    document.head.appendChild(script);
+async function loadScript(scriptName) {
+    return new Promise((resolve, reject) => {
+        var script = document.createElement("script");
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = '/js/' + scriptName + '.js';
+        document.head.appendChild(script);
+        script.addEventListener('load', () => resolve(script))
+        script.addEventListener('error', () => reject(new Error(`${scriptName} failed to load.`)))
+    })
 }
 function addStyle(cssName) { $('head').append('<link rel="stylesheet" href="/css/' + cssName + '.css" type="text/css" />'); }
 function setBackground(season) {
@@ -71,7 +77,8 @@ function setBackground(season) {
     elem.style.backgroundAttachment = "fixed";
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+//document.addEventListener('DOMContentLoaded', async function() {
+$(document).ready(async function() {
     const urlParams = new URLSearchParams(window.location.search);
     let season = urlParams.get('season') || getSeason();
     loadScript('comeback');
@@ -80,10 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (season == 'summer') {
     } else if (season == 'autumn') {
     } else if (season == 'winter') {
-        loadScript('snow');
+        await loadScript('snow');
+        snowStorm.toggleSnow();
     //? Special Cases
     } else if (season == 'xmas') {
-        loadScript('snow');
+        await loadScript('snow');
+        snowStorm.toggleSnow();
     } else if (season == 'nye') {
         var canvas = document.createElement("canvas");
         canvas.id = "canvas";
@@ -98,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         canvas.style.zIndex = 10
         document.getElementById('background-cover').appendChild(canvas); //? Append to background-cover.
         //?document.body.appendChild(canvas); // Append to body
-        loadScript('fireworks');
+        await loadScript('fireworks');
     } else {
 
     }
