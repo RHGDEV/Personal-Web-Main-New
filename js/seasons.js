@@ -48,14 +48,15 @@ function getSeason() {
 }
 
 async function loadScript(scriptName) {
-    return new Promise((resolve, reject) => {
+    return new Promise((res, rej) => {
         var script = document.createElement("script");
         script.type = 'text/javascript';
         script.async = true;
         script.src = '/js/' + scriptName + '.js';
+        script.onload = res
         document.head.appendChild(script);
-        script.addEventListener('load', () => resolve(script))
-        script.addEventListener('error', () => reject(new Error(`${scriptName} failed to load.`)))
+        //script.addEventListener('load', () => res(script))
+        //script.addEventListener('error', () => rej(new Error(`${scriptName} failed to load.`)))
     })
 }
 function addStyle(cssName) { $('head').append('<link rel="stylesheet" href="/css/' + cssName + '.css" type="text/css" />'); }
