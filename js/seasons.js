@@ -41,7 +41,7 @@ function getSeason() {
     else if (month == 9 || month == 10 || month == 11) return 'autumn';
     else if (month == 12 || month == 1 || month == 2) {
         if (month == 12 && day >= 25) return 'xmas';
-        if (month == 1 && day >= 1) return 'nye';
+        if (month == 1 && day == 1) return 'nye';
         return 'winter'
     }
     return seasons[Math.floor((month % 12) / 3)];
