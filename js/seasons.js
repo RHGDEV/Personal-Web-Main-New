@@ -8,12 +8,14 @@ const backgrounds = {
     spring: [
         '1591194577912-2c7811d0f994',
         '1541942172213-60aeb3558797',
-        '1597086454462-1f9b6e95e1f7'
+        '1597086454462-1f9b6e95e1f7',
+		'1520363027780-797c0e65eed5'
     ],
     autumn: [
         '1507486411790-179bbb6866ed',
         '1550931937-2dfd45a40da0',
-        '1508766229-1a45d4127740'
+        '1508766229-1a45d4127740',
+		'1509838174235-432f709c7bfd'
     ],
     winter: [
         '1515583484859-a15e976f80d2',
@@ -41,7 +43,7 @@ function getSeason() {
     else if (month == 9 || month == 10 || month == 11) return 'autumn';
     else if (month == 12 || month == 1 || month == 2) {
         if (month == 12 && day >= 25) return 'xmas';
-        if (month == 1 && day == 1) return 'nye';
+        if (month == 1 && day >= 1) return 'nye';
         return 'winter'
     }
     return seasons[Math.floor((month % 12) / 3)];
@@ -53,10 +55,9 @@ async function loadScript(scriptName) {
         script.type = 'text/javascript';
         script.async = true;
         script.src = '/js/' + scriptName + '.js';
-        script.onload = res
         document.head.appendChild(script);
-        //script.addEventListener('load', () => res(script))
-        //script.addEventListener('error', () => rej(new Error(`${scriptName} failed to load.`)))
+        script.addEventListener('load', () => res(script))
+        script.addEventListener('error', () => rej(new Error(`${scriptName} failed to load.`)))
     })
 }
 function addStyle(cssName) { $('head').append('<link rel="stylesheet" href="/css/' + cssName + '.css" type="text/css" />'); }
@@ -82,7 +83,7 @@ function setBackground(season) {
 $(document).ready(async function() {
     const urlParams = new URLSearchParams(window.location.search);
     let season = urlParams.get('season') || getSeason();
-    loadScript('comeback');
+    //loadScript('comeback');
     setBackground(season);
     if (season == 'spring') {
     } else if (season == 'summer') {
