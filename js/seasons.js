@@ -1,5 +1,6 @@
 const backgrounds = {
     default: '1631677209832-e9dd6aec3697',
+	force: '',
     summer: [
         '1541843713287-e0d5de49a384',
         '1512848857248-75eff50a19a1',
@@ -8,17 +9,22 @@ const backgrounds = {
     spring: [
         '1591194577912-2c7811d0f994',
         '1541942172213-60aeb3558797',
-        '1597086454462-1f9b6e95e1f7'
+        '1597086454462-1f9b6e95e1f7',
+		'1520363027780-797c0e65eed5'
     ],
     autumn: [
         '1507486411790-179bbb6866ed',
         '1550931937-2dfd45a40da0',
-        '1508766229-1a45d4127740'
+        '1508766229-1a45d4127740',
+		'1509838174235-432f709c7bfd',
+		'1634523453794-b992ac716fa3',
+		'1633622667733-5de5e7ab9305'
     ],
     winter: [
         '1515583484859-a15e976f80d2',
         '1483921020237-2ff51e8e4b22',
-        '1456389573961-0ae56d45961e'
+        '1456389573961-0ae56d45961e',
+		'1641785680273-9017dd4cb5c9'
     ],
     //? Special
     xmas: [
@@ -26,7 +32,7 @@ const backgrounds = {
     ],
     nye: [
         '1514876246314-d9a231ea21db'
-    ]
+	]
 }
 function getSeason() {
     //return 'default' //? enforce default image
@@ -41,7 +47,7 @@ function getSeason() {
     else if (month == 9 || month == 10 || month == 11) return 'autumn';
     else if (month == 12 || month == 1 || month == 2) {
         if (month == 12 && day >= 25) return 'xmas';
-        if (month == 1 && day == 1) return 'nye';
+        if (month == 1 && day >= 1) return 'nye';
         return 'winter'
     }
     return seasons[Math.floor((month % 12) / 3)];
@@ -53,18 +59,19 @@ async function loadScript(scriptName) {
         script.type = 'text/javascript';
         script.async = true;
         script.src = '/js/' + scriptName + '.js';
-        script.onload = res
         document.head.appendChild(script);
-        //script.addEventListener('load', () => res(script))
-        //script.addEventListener('error', () => rej(new Error(`${scriptName} failed to load.`)))
+        script.addEventListener('load', () => res(script))
+        script.addEventListener('error', () => rej(new Error(`${scriptName} failed to load.`)))
     })
 }
 function addStyle(cssName) { $('head').append('<link rel="stylesheet" href="/css/' + cssName + '.css" type="text/css" />'); }
 function setBackground(season) {
-    let imgId = backgrounds[season] ? backgrounds[season][Math.floor(Math.random()*backgrounds[season].length)] : backgrounds.default;
-    imgId = imgId || backgrounds.default;
+	let imgId = backgrounds[season] ? backgrounds[season][Math.floor(Math.random()*backgrounds[season].length)] : backgrounds.default;
+	if (backgrounds.force !== '') imgId = backgrounds.force;
+    imgId = imgId || backgrounds.default
     imgId = 'https://images.unsplash.com/photo-' + imgId + '?ixlib=rb-1.2.1&auto=format&h=1080'//? Format //! &q=180' //? Downscale
     let elem = document.getElementById('background');
+	elem.style.animation = 'fadeIn 4s'
     elem.style.position = "fixed";
     elem.style.top = "-50%"
     elem.style.left = "-50%"
@@ -82,7 +89,7 @@ function setBackground(season) {
 $(document).ready(async function() {
     const urlParams = new URLSearchParams(window.location.search);
     let season = urlParams.get('season') || getSeason();
-    loadScript('comeback');
+    //loadScript('comeback');
     setBackground(season);
     if (season == 'spring') {
     } else if (season == 'summer') {
@@ -97,6 +104,7 @@ $(document).ready(async function() {
     } else if (season == 'nye') {
         var canvas = document.createElement("canvas");
         canvas.id = "canvas";
+		canvas.style["pointer-events"] = "auto";
         canvas.style.cursor = "crosshair"
         canvas.style.position = "fixed";
         canvas.style.margin = "0";
@@ -112,4 +120,6 @@ $(document).ready(async function() {
     } else {
 
     }
+
+	loadScript('typer')
 });
