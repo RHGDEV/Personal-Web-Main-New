@@ -1,11 +1,8 @@
 let typer, phrase, phrases = [
-		//'Keep moving, theres nothing much to see.',
-		//'"Computer go brrr"',
-		//'You found another lazy website.',
+		'Knowledge is Power',
 		'Microsoft Office Specialist — Excel 2016',
-		'Verified Discord Bot Developer; 2021',
-		'Eagle Scout — Class of 2020',
-		'"Look on every exit as being an entrance somewhere else."',
+		'Verified Discord Bot Developer — 2021',
+		'Scouts BSA, Eagle Scout — Class of 2020',
 	],
 	phraseNum = 0;
 
