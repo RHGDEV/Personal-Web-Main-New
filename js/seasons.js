@@ -55,7 +55,7 @@ function getSeason() {
 
 async function loadScript(scriptName) {
     return new Promise((res, rej) => {
-        var script = document.createElement("script");
+        var script = document.createElement('script');
         script.type = 'text/javascript';
         script.async = true;
         script.src = '/js/' + scriptName + '.js';
@@ -71,18 +71,27 @@ function setBackground(season) {
     imgId = imgId || backgrounds.default
     imgId = 'https://images.unsplash.com/photo-' + imgId + '?ixlib=rb-1.2.1&auto=format&h=1080'//? Format //! &q=180' //? Downscale
     let elem = document.getElementById('background');
-	elem.style.animation = 'fadeIn 4s'
-    elem.style.position = "fixed";
-    elem.style.top = "-50%"
-    elem.style.left = "-50%"
-    elem.style.width = "200%"
-    elem.style.height = "200%"
-    elem.style.backgroundSize = "cover"
-    elem.style.backgroundColor = "linear-gradient(5deg, rgba(0, 0, 0, 0.4)"
+	elem.style.opacity = 0;
+    elem.style.position = 'fixed';
+    elem.style.top = '-50%';
+    elem.style.left = '-50%';
+    elem.style.width = '200%';
+    elem.style.height = '200%';
+    elem.style.backgroundSize = 'cover';
+    elem.style.backgroundColor = 'linear-gradient(5deg, rgba(0, 0, 0, 0.4)';
+    elem.style.backgroundRepeat = 'no-repeat';
+    elem.style.backgroundPosition = 'center center';
+    elem.style.backgroundAttachment = 'fixed';
+
+	let img = new Image();
+	img.onload = async () => {
+		elem.style.transition = 'opacity 4s'
+		elem.style.opacity = 1
+	}
+	img.src = imgId;
+	if (img.complete) img.onload();
+	
     elem.style.backgroundImage = "url('"+ imgId +"')";
-    elem.style.backgroundRepeat = "no-repeat";
-    elem.style.backgroundPosition = "center center";
-    elem.style.backgroundAttachment = "fixed";
 }
 
 //document.addEventListener('DOMContentLoaded', async function() {
@@ -102,17 +111,17 @@ $(document).ready(async function() {
         await loadScript('snow');
         snowStorm.toggleSnow();
     } else if (season == 'nye') {
-        var canvas = document.createElement("canvas");
-        canvas.id = "canvas";
-		canvas.style["pointer-events"] = "auto";
-        canvas.style.cursor = "crosshair"
-        canvas.style.position = "fixed";
-        canvas.style.margin = "0";
-	    canvas.style.width = "100%";
-	    canvas.style.height = "100%";
-	    canvas.style.left = "0";
-	    canvas.style.top = "0";
-        canvas.style.display = "block";
+        var canvas = document.createElement('canvas');
+        canvas.id = 'canvas';
+		canvas.style['pointer-events'] = 'auto';
+        canvas.style.cursor = 'crosshair'
+        canvas.style.position = 'fixed';
+        canvas.style.margin = '0';
+	    canvas.style.width = '100%';
+	    canvas.style.height = '100%';
+	    canvas.style.left = '0';
+	    canvas.style.top = '0';
+        canvas.style.display = 'block';
         canvas.style.zIndex = 10
         document.getElementById('background-cover').appendChild(canvas); //? Append to background-cover.
         //?document.body.appendChild(canvas); // Append to body
