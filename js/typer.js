@@ -1,20 +1,19 @@
-let typer, phrase, phrases = [
-		//'Keep moving, theres nothing much to see.',
-		//'"Computer go brrr"',
-		//'You found another lazy website.',
-		'Microsoft Office Specialist — Excel 2016',
-		'Verified Discord Bot Developer; 2021',
-		'Eagle Scout — Class of 2020',
-		'"Look on every exit as being an entrance somewhere else."',
-	],
-	phraseNum = 0;
+let typer, phrase, phraseNum = 0, phrases = [
+	'A.A.S. Computer IT — Networking; 2023',
+	'Microsoft Office Specialist — Excel 2016',
+	'Eagle Scout — Class of 2020',
+	'CCNA: Introduction to Networks; 2023',
+	'CCNA: Switching, Routing, and Wireless Essentials; 2023',
+	'Amateur Radio Operator — Technician',
+	'Verified Discord Bot Developer; 2021',
+];
 
 phrase = () => {
 	let curPhrase = phrases[phraseNum];
 	typer = new TypeIt("#typer", {
 		string: [],
 		startDelete: true,
-		speed: 100,
+		speed: 75,
 		waitUntilVisible: true,
 		afterComplete: (i) => {
 			i.destroy();
